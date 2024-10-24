@@ -6,21 +6,21 @@ import com.Soumyajit.PracticeSpringboot.Service.ServiceClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @Component
-@RequestMapping(path = "/department")
+@RequestMapping("/department")
 public class ControllerClass {
 
-    @Autowired
-    ServiceClass service;
-
+   // @Autowired
+    private final ServiceClass service;
+    public ControllerClass(ServiceClass service) {
+        this.service = service;
+    }
 
 
     @GetMapping("/{departmentId}")
@@ -29,6 +29,17 @@ public class ControllerClass {
          return departmentDTO.map(dto->ResponseEntity.ok(dto))
                  .orElse(ResponseEntity.notFound()
                          .build());
+    }
+
+    @GetMapping()
+    public List<DepartmentDTO> getAll(){
+        return service.Getall();
+    }
+
+
+    @PostMapping()
+    public DepartmentDTO createDepartment(@RequestBody DepartmentDTO inputId){
+        return service.createDepartment(inputId);
     }
 
 }
