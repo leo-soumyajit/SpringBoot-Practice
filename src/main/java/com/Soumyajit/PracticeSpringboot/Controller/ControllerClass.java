@@ -42,4 +42,14 @@ public class ControllerClass {
         return service.createDepartment(inputId);
     }
 
+    @DeleteMapping("/{departmentId}")
+    public String deleteById(@PathVariable Long departmentId){
+        return service.deleteById(departmentId);
+    }
+
+    @PutMapping("/{departmentId}")
+    public DepartmentDTO update(@PathVariable Long departmentId , @RequestBody DepartmentDTO departmentDTO ) {
+        return service.update(departmentId , departmentDTO);
+    }
+
 }
